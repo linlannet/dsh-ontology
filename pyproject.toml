@@ -1,0 +1,9 @@
+[project]
+name = "dsh-ontology-workspace"
+version = "0.2.0"
+description = "DSH 本体库平台（Python 版）uv workspace 根"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv.workspace]
+members = ["packages/*", "apps/*"]

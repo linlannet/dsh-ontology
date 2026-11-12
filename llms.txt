@@ -1,0 +1,50 @@
+# dsh-ontology — DSH 本体库 Python 平台层
+
+> uv workspace 维护 5 个平台包 + 平台应用，FastAPI 监听 8093；与 Java dsh-java-ontology 同契约、同表结构。
+
+Key capabilities:
+- base: 配置、双库会话、租户中间件、JWT、统一结果、Harness 插件协议
+- flow: 认证授权、动态本体、工作台、个人/公共/全局知识汇聚
+- qa: 报告与问数
+- viz: 图谱查询与展示
+- metric: 指标采集与统计
+- platform: 聚合 5 包，FastAPI 8093
+
+Tech stack: Python 3.12, FastAPI, SQLAlchemy (async), asyncmy, PyJWT, bcrypt, uv workspace
+Version: workspace and all packages 0.2.0
+Repository: git@github-linlannet:linlannet/dsh-ontology.git
+
+Build / Test:
+- Install: `uv sync --all-packages`
+- Run:     `uv run dsh-ontology` (port 8093)
+- Health:  `GET /health`
+- Tests:   none yet (pytest baseline planned in docs/0.2.2)
+
+Runtime:
+- Port:        8093 (`DSH_PLATFORM_PORT`)
+- Deploy mode: `split` (`DSH_DEPLOY_MODE`)
+- SIIS DB:     `dsh_java_siisdb` (`DSH_SIIS_DB_URL`)
+- Onto DB:     `dsh_java_ontodb` (`DSH_ONTO_DB_URL`)
+- JWT:         `DSH_JWT_SECRET`
+- Harness:     `DSH_HARNESS_BASE_URL` (default http://127.0.0.1:8090)
+
+Baseline:
+- 37 SQLAlchemy models
+- 107 HTTP endpoints
+- dual database engines
+- response shape: raw on success, `{code, msg, data}` on errors
+
+Structure:
+- packages/base/src/dsh_onto_base        config, db, security, middleware, plugin, result
+- packages/flow/src/dsh_onto_flow        sys, ontology, workspace, global
+- packages/qa/src/dsh_onto_qa            report, qa, task
+- packages/viz/src/dsh_onto_viz          graph view
+- packages/metric/src/dsh_onto_metric    metrics
+- apps/platform/src/dsh_ontology         app.py, main.py
+- docs/0.2.2                             alignment spec / design / tasks / release notes
+
+Docs:
+- README.md / README.en.md
+- AGENTS.md
+- CHANGELOG.md
+- docs/0.2.2/spec.md
